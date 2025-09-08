@@ -7,6 +7,8 @@ import {
   weiToEth,
 } from "@/utils/AppUtils";
 import { provider } from "@/utils/constants";
+import MiniFunctions, { User } from "@/utils/MiniFunctions";
+import { sendFollowNotification } from "@/utils/sendFollowNotification";
 import { useRouter } from "expo-router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
@@ -31,6 +33,9 @@ const UserList = ({ onBack }) => {
   const [estimateFee, setEstimateFee] = useState("0");
   const [followModalOpen, setFollowModalOpen] = useState(false);
   const [accountToFollow, setAccountToFollow] = useState("");
+  const [accountToFollowUser, setAccountToFollowUser] = useState<User>();
+
+  const user = MiniFunctions(account?.address?.toString());
 
   const fetchUser = async () => {
     if (!contract || !address) return;
@@ -173,6 +178,9 @@ const UserList = ({ onBack }) => {
 
       await provider.waitForTransaction(res.transaction_hash);
 
+      // follow push not fici
+      sendFollowNotification(accountToFollowUser,user);
+
       // setSelectedPostId(postId);
     } catch (err) {
       console.error("Claim fee estimation failed:", err);
@@ -185,10 +193,11 @@ const UserList = ({ onBack }) => {
     }
   };
 
-  const handleFollowPress = (userId) => {
+  const handleFollowPress = (user) => {
     // alert(bigintToLongAddress(userId));
-    const accountAddress = bigintToLongAddress(userId);
+    const accountAddress = bigintToLongAddress(user.userId);
     estimateFollowUser(accountAddress);
+    setAccountToFollowUser(user)
     // setFollowStates((prev) => ({
     //   ...prev,
     //   [userId]:
@@ -348,7 +357,7 @@ const UserList = ({ onBack }) => {
 
             <TouchableOpacity
               style={getButtonStyle(followStates[user.userId])}
-              onPress={() => handleFollowPress(user.userId)}
+              onPress={() => handleFollowPress(user)}
             >
               <Text style={getButtonTextStyle(followStates[user.userId])}>
                 {getButtonText(followStates[user.userId])}
