@@ -1,40 +1,38 @@
-import React, { useState, useEffect, useCallback } from "react";
+import PostItem from "@/components/PostItem";
+import { useAppContext } from "@/providers/AppProvider";
+import { weiToEth } from "@/utils/AppUtils";
 import { useFocusEffect } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import React, { useCallback, useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  TextInput,
   ActivityIndicator,
-  StatusBar,
-  Pressable,
-  Modal,
   FlatList,
+  Image,
+  Modal,
+  Pressable,
+  StatusBar,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { CallData, uint256,ETransactionVersion3 } from "starknet";
-import { useRouter } from "expo-router";
+import { CallData, uint256 } from "starknet";
 import styles from "../../styles/index";
-import PostItem from "@/components/PostItem";
-import { weiToEth } from "@/utils/AppUtils";
-import { useAppContext } from "@/providers/AppProvider";
 
 import CreatePostComponent from "@/components/PostComponent";
-import Toast from "react-native-toast-message";
-import MiniFunctions from "@/utils/MiniFunctions";
-import { CONTRACT_ADDRESS } from "@/providers/abi";
 import ConfirmPostModal from "@/components/PostConfirmationModal";
+import { CONTRACT_ADDRESS } from "@/providers/abi";
+import MiniFunctions from "@/utils/MiniFunctions";
+import Toast from "react-native-toast-message";
 
+import { LIKE_FEE, STRK_ADDRESS } from "@/utils/constants";
 import usePostActions from "../hooks/usePostActions";
 import usePostSelectors from "../hooks/usePostSelectors";
-import { LIKE_FEE, STRK_ADDRESS } from "@/utils/constants";
 import usePostStore from "@/stores/usePaginationStore";
 import { sendNotification } from "@/utils/sendLikeNotification";
-;
-
 const StarkZuriHomepage = () => {
-  const { contract, account, isReady,provider } = useAppContext();
+  const { contract, account, isReady, provider } = useAppContext();
   const router = useRouter();
 
   // UI State
@@ -44,9 +42,9 @@ const StarkZuriHomepage = () => {
   const [estimateFee, setEstimateFee] = useState("0.00");
   const [platformFee, setPlatformFee] = useState("0.00");
   const [selectedPostId, setSelectedPostId] = useState<string>("0");
-const [isInitialized, setIsInitialized] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   // User data
-const user = MiniFunctions(account?.address?.toString() ?? "");
+  const user = MiniFunctions(account?.address?.toString() ?? "");
 
 const getPostById = usePostStore(state => state.getPostById);
 
@@ -58,7 +56,7 @@ const getPostById = usePostStore(state => state.getPostById);
     isInitializing,
     canLoadMore,
     hasError,
-    errorMessage
+    errorMessage,
   } = usePostSelectors();
 
   const {
@@ -67,15 +65,15 @@ const getPostById = usePostStore(state => state.getPostById);
     refresh,
     likePost,
     claimPoints,
-    clearError
+    clearError,
   } = usePostActions();
 
-useEffect(() => {
-  if (contract && !isInitialized) {
-    initializePosts(contract);
-    setIsInitialized(true);
-  }
-}, [contract, initializePosts, isInitialized]);
+  useEffect(() => {
+    if (contract && !isInitialized) {
+      initializePosts(contract);
+      setIsInitialized(true);
+    }
+  }, [contract, initializePosts, isInitialized]);
 
   // Auto-load posts when pagination is ready
   useFocusEffect(
@@ -99,83 +97,95 @@ useEffect(() => {
   }, [hasError, errorMessage, clearError]);
 
   // Fee estimation for likes
-  const estimateLikeFees = useCallback(async (postId: string) => {
-    if (!account || !isReady || !contract) return;
-    
-    try {
-      const myCall = contract.populate("like_post", [postId]);
+  const estimateLikeFees = useCallback(
+    async (postId: string) => {
+      if (!account || !isReady || !contract) return;
 
-      const POST_CONTRACT = "0x7c2109cfa8c36fa10c6baac19b234679606cba00eb6697a052b73b869850673";
-      const FEE = LIKE_FEE;
+      try {
+        const myCall = contract.populate("like_post", [postId]);
 
-      const calls = [
-        {
-          contractAddress: STRK_ADDRESS,
-          entrypoint: "approve",
-          calldata: CallData.compile({
-            spender: POST_CONTRACT,
-            amount: uint256.bnToUint256(FEE),
-          }),
-        },
-        {
-          contractAddress: POST_CONTRACT,
-          entrypoint: "like_post",
-          calldata: myCall.calldata,
-        },
-      ];
+        const POST_CONTRACT = CONTRACT_ADDRESS;
+        const FEE = LIKE_FEE;
 
-      const { suggestedMaxFee } = await account.estimateInvokeFee(calls);
-      const likeFee = LIKE_FEE;
-      
-      setEstimateFee(weiToEth(suggestedMaxFee, 8));
-      setPlatformFee(weiToEth(likeFee));
-      setSelectedPostId(postId);
-    } catch (error) {
-      console.error("Fee estimation error:", error);
-      Toast.show({
-        type: "error",
-        text1: "Fee Estimation Failed",
-        text2: "Please try again",
-      });
-    }
-  }, [account, isReady, contract]);
+        const calls = [
+          {
+            contractAddress: STRK_ADDRESS,
+            entrypoint: "approve",
+            calldata: CallData.compile({
+              spender: POST_CONTRACT,
+              amount: uint256.bnToUint256(FEE),
+            }),
+          },
+          {
+            contractAddress: POST_CONTRACT,
+            entrypoint: "like_post",
+            calldata: myCall.calldata,
+          },
+        ];
+
+        const { suggestedMaxFee } = await account.estimateInvokeFee(calls);
+        const likeFee = LIKE_FEE;
+
+        setEstimateFee(weiToEth(suggestedMaxFee, 8));
+        setPlatformFee(weiToEth(likeFee));
+        setSelectedPostId(postId);
+      } catch (error) {
+        console.error("Fee estimation error:", error);
+        Toast.show({
+          type: "error",
+          text1: "Fee Estimation Failed",
+          text2: "Please try again",
+        });
+      }
+    },
+    [account, isReady, contract]
+  );
 
   // Fee estimation for claims
-  const estimateClaimFees = useCallback(async (postId: string) => {
-    if (!account || !isReady || !contract) return;
+  const estimateClaimFees = useCallback(
+    async (postId: string) => {
+      if (!account || !isReady || !contract) return;
 
-    try {
-      const myCall = contract.populate("claim_post_points", [postId]);
-      const { suggestedMaxFee } = await account.estimateInvokeFee({
-        contractAddress: CONTRACT_ADDRESS,
-        entrypoint: "claim_post_points",
-        calldata: myCall.calldata,
-      });
+      try {
+        const myCall = contract.populate("claim_post_points", [postId]);
+        const { suggestedMaxFee } = await account.estimateInvokeFee({
+          contractAddress: CONTRACT_ADDRESS,
+          entrypoint: "claim_post_points",
+          calldata: myCall.calldata,
+        });
 
-      setEstimateFee(weiToEth(suggestedMaxFee, 8));
-      setPlatformFee("0.00");
-      setSelectedPostId(postId);
-    } catch (err) {
-      console.error("Claim fee estimation failed:", err);
-      Toast.show({
-        type: "error",
-        text1: "Fee Estimation Failed",
-        text2: "Please try again",
-      });
-    }
-  }, [account, isReady, contract]);
+        setEstimateFee(weiToEth(suggestedMaxFee, 8));
+        setPlatformFee("0.00");
+        setSelectedPostId(postId);
+      } catch (err) {
+        console.error("Claim fee estimation failed:", err);
+        Toast.show({
+          type: "error",
+          text1: "Fee Estimation Failed",
+          text2: "Please try again",
+        });
+      }
+    },
+    [account, isReady, contract]
+  );
 
   // Handle like verification and modal
-  const verifyLike = useCallback(async (postId: string) => {
-    await estimateLikeFees(postId);
-    setLikeModalVisible(true);
-  }, [estimateLikeFees]);
+  const verifyLike = useCallback(
+    async (postId: string) => {
+      await estimateLikeFees(postId);
+      setLikeModalVisible(true);
+    },
+    [estimateLikeFees]
+  );
 
   // Handle claim verification and modal
-  const verifyHandleClaimPoints = useCallback(async (postId: string) => {
-    await estimateClaimFees(postId);
-    setClaimModalOpen(true);
-  }, [estimateClaimFees]);
+  const verifyHandleClaimPoints = useCallback(
+    async (postId: string) => {
+      await estimateClaimFees(postId);
+      setClaimModalOpen(true);
+    },
+    [estimateClaimFees]
+  );
 
   // Execute like transaction
   const handleLike = useCallback(async () => {
@@ -192,8 +202,7 @@ useEffect(() => {
           autoHide: false,
         });
 
-    
-        const POST_CONTRACT = "0x7c2109cfa8c36fa10c6baac19b234679606cba00eb6697a052b73b869850673";
+        const POST_CONTRACT = CONTRACT_ADDRESS;
         const FEE = LIKE_FEE;
 
         const myCall = contract.populate("like_post", [postId]);
@@ -291,9 +300,14 @@ useEffect(() => {
   // Render loading state
   if (isInitializing) {
     return (
-      <SafeAreaView style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
+      <SafeAreaView
+        style={[
+          styles.container,
+          { justifyContent: "center", alignItems: "center" },
+        ]}
+      >
         <ActivityIndicator size="large" color="#2196F3" />
-        <Text style={{ color: '#fff', marginTop: 10 }}>Loading posts...</Text>
+        <Text style={{ color: "#fff", marginTop: 10 }}>Loading posts...</Text>
       </SafeAreaView>
     );
   }
@@ -323,7 +337,8 @@ useEffect(() => {
         <Pressable onPress={() => router.push("/profile")}>
           <Image
             source={{
-              uri: user.profile_pic || 
+              uri:
+                user.profile_pic ||
                 "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
             }}
             style={styles.userAvatar}
@@ -336,11 +351,11 @@ useEffect(() => {
         >
           <Text style={styles.createPostText}>What's happening?</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity
-         onPress={() => setModalVisible(true)}
-         style={styles.createPostButton}
-         >
+          onPress={() => setModalVisible(true)}
+          style={styles.createPostButton}
+        >
           <Text style={styles.createPostButtonText}>+</Text>
         </TouchableOpacity>
 
@@ -379,7 +394,9 @@ useEffect(() => {
         renderItem={({ item }) => (
           <PostItem
             post={item}
-            handleClaimPoints={() => verifyHandleClaimPoints(item.postId.toString())}
+            handleClaimPoints={() =>
+              verifyHandleClaimPoints(item.postId.toString())
+            }
             handleLike={() => verifyLike(item.postId.toString())}
           />
         )}
@@ -396,8 +413,8 @@ useEffect(() => {
         }
         ListEmptyComponent={
           !isLoading && !isInitializing ? (
-            <View style={{ padding: 40, alignItems: 'center' }}>
-              <Text style={{ color: '#8e8e93', fontSize: 16 }}>
+            <View style={{ padding: 40, alignItems: "center" }}>
+              <Text style={{ color: "#8e8e93", fontSize: 16 }}>
                 No posts yet. Be the first to share something!
               </Text>
             </View>

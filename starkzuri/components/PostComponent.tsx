@@ -1,45 +1,34 @@
+import { CONTRACT_ADDRESS } from "@/providers/abi";
+import { useAppContext } from "@/providers/AppProvider";
+import { multilineToSingleline, weiToEth } from "@/utils/AppUtils";
+import { uploadFile } from "@/utils/Infura";
+import MiniFunctions from "@/utils/MiniFunctions";
+import * as ImagePicker from "expo-image-picker";
+import { useRouter } from "expo-router";
+import {
+  ArrowLeft,
+  Camera,
+  Image as ImageIcon,
+  Send,
+  X,
+} from "lucide-react-native";
 import React, { useState } from "react";
 import {
-  View,
+  Alert,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
-  Image,
-  ScrollView,
-  KeyboardAvoidingView,
-  PermissionsAndroid,
-  Button,
-  Pressable,
-  Platform,
+  View,
 } from "react-native";
-import {
-  Camera,
-  Image as ImageIcon,
-  X,
-  Send,
-  Zap,
-  ArrowLeft,
-} from "lucide-react-native";
-import {
-  launchCamera,
-  launchImageLibrary,
-  Asset,
-  ImageLibraryOptions,
-  CameraOptions,
-} from "react-native-image-picker";
-import { CallData } from "starknet";
 import { SafeAreaView } from "react-native-safe-area-context";
-import * as ImagePicker from "expo-image-picker";
-import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
-import { useAppContext } from "@/providers/AppProvider";
-import { multilineToSingleline, weiToEth } from "@/utils/AppUtils";
-import MiniFunctions from "@/utils/MiniFunctions";
-import { uploadFile } from "@/utils/Infura";
 import ConfirmPostModal from "./PostConfirmationModal";
-import { CONTRACT_ADDRESS } from "@/providers/abi";
 
 type SelectedFile = {
   uri: string;
@@ -113,6 +102,14 @@ const CreatePostComponent = ({ onCreatePost, userAddress, onClose }) => {
       setPlatformFee("0.00");
     } catch (err) {
       console.error("🔥 Estimation failed:", err);
+      if (err.toString().includes("ASCII")) {
+        Toast.hide();
+        Toast.show({
+          type: "error",
+          text1: "Prediction Failure",
+          text2: err?.toString(),
+        });
+      }
     }
   };
 
@@ -233,18 +230,20 @@ const CreatePostComponent = ({ onCreatePost, userAddress, onClose }) => {
       Toast.show({
         type: "success",
         text1: "Post Created!",
-        text2: "Your content is now live 🎉",
+        text2: "Your content is now livre 🎉",
       });
 
       // Alert.alert("Success", "Your post has been created!");
     } catch (error) {
-      console.error("TX failed ", error);
-      Toast.hide();
-      Toast.show({
-        type: "error",
-        text1: "Post Failed",
-        text2: "Please try again later 😢",
-      });
+      console.log("TX failed ", error);
+      if (error.toString().includes("ASCII")) {
+        Toast.hide();
+        Toast.show({
+          type: "error",
+          text1: "Post Failed",
+          text2: error?.toString(),
+        });
+      }
     } finally {
       setIsLoading(false);
       setIsModalVisible(false);

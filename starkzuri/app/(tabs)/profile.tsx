@@ -1,40 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-  Modal,
-  Dimensions,
-  ToastAndroid,
-  Platform,
-  Pressable,
-  Alert,
-  FlatList,
-} from "react-native";
-import {
-  Bell,
-  Users,
-  UserPlus,
-  Settings,
-  Award,
-  Calendar,
-  Star,
-  Zap,
-  FileText,
-  Video,
-  Gift,
-  Eye,
-  Heart,
-  MessageCircle,
-  Share,
-  Play,
-  Clock,
-} from "lucide-react-native";
-import * as VideoThumbnails from "expo-video-thumbnails";
-import Markdown from "react-native-markdown-display";
+import { CONTRACT_ADDRESS } from "@/providers/abi";
 import { useAppContext } from "@/providers/AppProvider";
 import {
   bigintToLongAddress,
@@ -42,15 +6,49 @@ import {
   htmlToMarkdown,
   weiToEth,
 } from "@/utils/AppUtils";
-import { CONTRACT_ADDRESS } from "@/providers/abi";
+import { useRouter } from "expo-router";
+import * as VideoThumbnails from "expo-video-thumbnails";
+import {
+  Calendar,
+  Eye,
+  FileText,
+  Gift,
+  Heart,
+  MessageCircle,
+  Play,
+  Settings,
+  Share,
+  Star,
+  User,
+  UserPlus,
+  Users,
+  Video,
+  Zap,
+} from "lucide-react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  Alert,
+  Dimensions,
+  FlatList,
+  Image,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Markdown from "react-native-markdown-display";
 
-import MiniFunctions from "@/utils/MiniFunctions";
-import ProfileUpdateComponent from "@/components/UpdateUser";
-import Toast from "react-native-toast-message";
 import ConfirmPostModal from "@/components/PostConfirmationModal";
+import ProfileUpdateComponent from "@/components/UpdateUser";
+import MiniFunctions from "@/utils/MiniFunctions";
 import * as Clipboard from "expo-clipboard";
+import Toast from "react-native-toast-message";
 // import { Video } from "expo-av";
-import { handleUrlParams } from "expo-router/build/fork/getStateFromPath-forks";
 import usePostActions from "../hooks/usePostActions";
 
 const { width } = Dimensions.get("window");
@@ -122,6 +120,7 @@ const UserProfile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [thumbnails, setThumbnails] = useState<{ [key: number]: string }>({});
   const { claimPoints } = usePostActions();
+  const router = useRouter();
   // Sample posts data
 
   // Sample videos data
@@ -366,11 +365,11 @@ const UserProfile = () => {
   }, [accountReels]);
 
   const StatCard = ({ icon: Icon, label, value, color = "#ffffff" }) => (
-    <View style={styles.statCard}>
+    <TouchableOpacity style={styles.statCard}>
       <Icon size={20} color={color} style={styles.statIcon} />
       <Text style={styles.statValue}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   const PostCard = ({ post }: { post: Post }) => (
@@ -751,8 +750,13 @@ const UserProfile = () => {
 
           {/* Header Actions */}
           <View style={styles.headerActions}>
-            <TouchableOpacity style={styles.actionButton}>
-              <Bell size={20} color="#ffffff" />
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => {
+                router.push({ pathname: "/modals/users" });
+              }}
+            >
+              <User size={20} color="#ffffff" />
               {user?.notifications.toString() !== "0" && (
                 <View style={styles.notificationBadge}>
                   <Text style={styles.badgeText}>

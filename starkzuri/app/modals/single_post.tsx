@@ -1,31 +1,29 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  FlatList,
-  Dimensions,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { CallData, uint256 } from "starknet";
+import CommentComponent from "@/components/CommentComponent";
+import ConfirmPostModal from "@/components/PostConfirmationModal";
+import PostFooter from "@/components/PostFooter";
+import PostHeader from "@/components/PostHeader";
+import { CONTRACT_ADDRESS } from "@/providers/abi";
+import { useAppContext } from "@/providers/AppProvider";
+import { htmlToMarkdown, weiToEth } from "@/utils/AppUtils";
+import { LIKE_FEE, STRK_ADDRESS } from "@/utils/constants";
 import { Ionicons } from "@expo/vector-icons"; // or react-native-vector-icons
 import { useLocalSearchParams, useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Markdown from "react-native-markdown-display";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
+import { CallData, uint256 } from "starknet";
 import TurndownService from "turndown";
-import PostHeader from "@/components/PostHeader";
-import PostFooter from "@/components/PostFooter";
-import { useAppContext } from "@/providers/AppProvider";
-import CommentComponent from "@/components/CommentComponent";
-import { htmlToMarkdown } from "@/utils/AppUtils";
-import { weiToEth } from "@/utils/AppUtils";
-import ConfirmPostModal from "@/components/PostConfirmationModal";
-import { CONTRACT_ADDRESS } from "@/providers/abi";
-import { LIKE_FEE, STRK_ADDRESS } from "@/utils/constants";
+
 import MiniFunctions from "@/utils/MiniFunctions";
 import usePostStore from "@/stores/usePaginationStore";
 import { sendNotification } from "@/utils/sendLikeNotification";
@@ -162,7 +160,7 @@ const SinglePostPage = () => {
     })
       .then((res) => {
         let val = res;
-         console.log("fvgf",val);
+        console.log("fvgf", val);
         setPosts(val);
         // console.log(val);
       })
@@ -253,9 +251,7 @@ const SinglePostPage = () => {
     try {
       const myCall = contract.populate("like_post", [single_post]);
 
-     
-      const POST_CONTRACT =
-        "0x7c2109cfa8c36fa10c6baac19b234679606cba00eb6697a052b73b869850673";
+      const POST_CONTRACT = CONTRACT_ADDRESS;
       const FEE = LIKE_FEE;
 
       const calls = [
@@ -307,9 +303,7 @@ const SinglePostPage = () => {
       autoHide: false,
     });
 
-    
-    const POST_CONTRACT =
-      "0x7c2109cfa8c36fa10c6baac19b234679606cba00eb6697a052b73b869850673";
+    const POST_CONTRACT = CONTRACT_ADDRESS;
     const FEE = LIKE_FEE;
 
     const myCall = contract.populate("like_post", [single_post]);
@@ -400,7 +394,7 @@ const SinglePostPage = () => {
       const myCall = contract.populate("claim_post_points", [single_post]);
 
       const res = await account.execute(myCall);
-     // console.log("points claimed", res.transaction_hash);
+      // console.log("points claimed", res.transaction_hash);
 
       Toast.hide();
       Toast.show({

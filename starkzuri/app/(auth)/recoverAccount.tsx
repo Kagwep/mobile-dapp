@@ -1,18 +1,18 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as DocumentPicker from "expo-document-picker";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-  StyleSheet,
-  StatusBar,
-  ScrollView,
+  View,
 } from "react-native";
-import * as DocumentPicker from "expo-document-picker";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useRouter } from "expo-router";
 export default function RecoverAccount() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");

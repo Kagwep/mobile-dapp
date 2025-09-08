@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { useAppContext } from "@/providers/AppProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Image,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  StatusBar,
-  Image,
-  ActivityIndicator,
-  Alert,
+  View,
 } from "react-native";
-import { useRouter } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useAppContext } from "@/providers/AppProvider";
-
+import { SafeAreaView } from "react-native-safe-area-context";
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -103,7 +102,7 @@ export default function Login() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0d1117" />
 
       <View style={styles.logoSection}>
@@ -172,7 +171,7 @@ export default function Login() {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,18 +1,19 @@
-import { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+import React, { useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
-  Alert,
-  StatusBar,
-  ScrollView,
-  ActivityIndicator,
+  View,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { Account, RpcProvider, ec, stark, hash, CallData } from "starknet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { RpcProvider } from "starknet";
 
 const provider = new RpcProvider({
   nodeUrl: "https://starknet-sepolia.public.blastapi.io/rpc/v0_7",
@@ -106,7 +107,7 @@ export default function Signup() {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#0d1117" />
 
       <ScrollView
@@ -207,7 +208,7 @@ export default function Signup() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,1030 +1,1270 @@
 export const CONTRACT_ADDRESS =
   "0x7c2109cfa8c36fa10c6baac19b234679606cba00eb6697a052b73b869850673";
+
+// export const CONTRACT_ADDRESS =
+//   "0x07fc515d3395cf2ceb6f9862766da338cf351a277bc616408c6e82572a87dfea";
 export const ABI = [
   {
-    "name": "StarkZuri",
-    "type": "impl",
-    "interface_name": "contract::interfaces::IStarkZuriContract"
+    type: "impl",
+    name: "StarkZuri",
+    interface_name: "contract::interfaces::IStarkZuriContract",
   },
   {
-    "name": "core::byte_array::ByteArray",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "core::byte_array::ByteArray",
+    members: [
       {
-        "name": "data",
-        "type": "core::array::Array::<core::bytes_31::bytes31>"
+        name: "data",
+        type: "core::array::Array::<core::bytes_31::bytes31>",
       },
       {
-        "name": "pending_word",
-        "type": "core::felt252"
+        name: "pending_word",
+        type: "core::felt252",
       },
       {
-        "name": "pending_word_len",
-        "type": "core::integer::u32"
-      }
-    ]
+        name: "pending_word_len",
+        type: "core::integer::u32",
+      },
+    ],
   },
   {
-    "name": "core::integer::u256",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "core::integer::u256",
+    members: [
       {
-        "name": "low",
-        "type": "core::integer::u128"
+        name: "low",
+        type: "core::integer::u128",
       },
       {
-        "name": "high",
-        "type": "core::integer::u128"
-      }
-    ]
+        name: "high",
+        type: "core::integer::u128",
+      },
+    ],
   },
   {
-    "name": "contract::structs::User",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::User",
+    members: [
       {
-        "name": "userId",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "userId",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "name",
-        "type": "core::felt252"
+        name: "name",
+        type: "core::felt252",
       },
       {
-        "name": "username",
-        "type": "core::felt252"
+        name: "username",
+        type: "core::felt252",
       },
       {
-        "name": "about",
-        "type": "core::byte_array::ByteArray"
+        name: "about",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "profile_pic",
-        "type": "core::byte_array::ByteArray"
+        name: "profile_pic",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "cover_photo",
-        "type": "core::byte_array::ByteArray"
+        name: "cover_photo",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "date_registered",
-        "type": "core::integer::u64"
+        name: "date_registered",
+        type: "core::integer::u64",
       },
       {
-        "name": "no_of_followers",
-        "type": "core::integer::u8"
+        name: "no_of_followers",
+        type: "core::integer::u8",
       },
       {
-        "name": "number_following",
-        "type": "core::integer::u8"
+        name: "number_following",
+        type: "core::integer::u8",
       },
       {
-        "name": "notifications",
-        "type": "core::integer::u256"
+        name: "notifications",
+        type: "core::integer::u256",
       },
       {
-        "name": "zuri_points",
-        "type": "core::integer::u256"
-      }
-    ]
+        name: "zuri_points",
+        type: "core::integer::u256",
+      },
+    ],
   },
   {
-    "name": "core::bool",
-    "type": "enum",
-    "variants": [
+    type: "enum",
+    name: "core::bool",
+    variants: [
       {
-        "name": "False",
-        "type": "()"
+        name: "False",
+        type: "()",
       },
       {
-        "name": "True",
-        "type": "()"
-      }
-    ]
+        name: "True",
+        type: "()",
+      },
+    ],
   },
   {
-    "name": "contract::structs::Comment",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::Comment",
+    members: [
       {
-        "name": "postId",
-        "type": "core::integer::u256"
+        name: "postId",
+        type: "core::integer::u256",
       },
       {
-        "name": "commentId",
-        "type": "core::integer::u256"
+        name: "commentId",
+        type: "core::integer::u256",
       },
       {
-        "name": "caller",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "caller",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "content",
-        "type": "core::byte_array::ByteArray"
+        name: "content",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "likes",
-        "type": "core::integer::u8"
+        name: "likes",
+        type: "core::integer::u8",
       },
       {
-        "name": "replies",
-        "type": "core::integer::u8"
+        name: "replies",
+        type: "core::integer::u8",
       },
       {
-        "name": "time_commented",
-        "type": "core::integer::u64"
+        name: "time_commented",
+        type: "core::integer::u64",
       },
       {
-        "name": "zuri_points",
-        "type": "core::integer::u256"
-      }
-    ]
+        name: "zuri_points",
+        type: "core::integer::u256",
+      },
+    ],
   },
   {
-    "name": "contract::structs::LightUser",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::LightUser",
+    members: [
       {
-        "name": "userId",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "userId",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "name",
-        "type": "core::felt252"
+        name: "name",
+        type: "core::felt252",
       },
       {
-        "name": "username",
-        "type": "core::felt252"
+        name: "username",
+        type: "core::felt252",
       },
       {
-        "name": "profile_pic",
-        "type": "core::byte_array::ByteArray"
+        name: "profile_pic",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "zuri_points",
-        "type": "core::integer::u256"
-      }
-    ]
+        name: "zuri_points",
+        type: "core::integer::u256",
+      },
+    ],
   },
   {
-    "name": "contract::structs::PostView",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::PostView",
+    members: [
       {
-        "name": "postId",
-        "type": "core::integer::u256"
+        name: "postId",
+        type: "core::integer::u256",
       },
       {
-        "name": "author",
-        "type": "contract::structs::LightUser"
+        name: "author",
+        type: "contract::structs::LightUser",
       },
       {
-        "name": "content",
-        "type": "core::byte_array::ByteArray"
+        name: "content",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "likes",
-        "type": "core::integer::u8"
+        name: "likes",
+        type: "core::integer::u8",
       },
       {
-        "name": "comments",
-        "type": "core::integer::u256"
+        name: "comments",
+        type: "core::integer::u256",
       },
       {
-        "name": "shares",
-        "type": "core::integer::u8"
+        name: "shares",
+        type: "core::integer::u8",
       },
       {
-        "name": "images",
-        "type": "core::byte_array::ByteArray"
+        name: "images",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "zuri_points",
-        "type": "core::integer::u256"
+        name: "zuri_points",
+        type: "core::integer::u256",
       },
       {
-        "name": "date_posted",
-        "type": "core::integer::u64"
-      }
-    ]
+        name: "date_posted",
+        type: "core::integer::u64",
+      },
+    ],
   },
   {
-    "name": "contract::structs::Post",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::Post",
+    members: [
       {
-        "name": "postId",
-        "type": "core::integer::u256"
+        name: "postId",
+        type: "core::integer::u256",
       },
       {
-        "name": "caller",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "caller",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "content",
-        "type": "core::byte_array::ByteArray"
+        name: "content",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "likes",
-        "type": "core::integer::u8"
+        name: "likes",
+        type: "core::integer::u8",
       },
       {
-        "name": "comments",
-        "type": "core::integer::u256"
+        name: "comments",
+        type: "core::integer::u256",
       },
       {
-        "name": "shares",
-        "type": "core::integer::u8"
+        name: "shares",
+        type: "core::integer::u8",
       },
       {
-        "name": "images",
-        "type": "core::byte_array::ByteArray"
+        name: "images",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "zuri_points",
-        "type": "core::integer::u256"
+        name: "zuri_points",
+        type: "core::integer::u256",
       },
       {
-        "name": "date_posted",
-        "type": "core::integer::u64"
-      }
-    ]
+        name: "date_posted",
+        type: "core::integer::u64",
+      },
+    ],
   },
   {
-    "name": "contract::structs::Community",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::Community",
+    members: [
       {
-        "name": "community_id",
-        "type": "core::integer::u256"
+        name: "community_id",
+        type: "core::integer::u256",
       },
       {
-        "name": "community_admin",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "community_admin",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "community_name",
-        "type": "core::felt252"
+        name: "community_name",
+        type: "core::felt252",
       },
       {
-        "name": "description",
-        "type": "core::byte_array::ByteArray"
+        name: "description",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "members",
-        "type": "core::integer::u256"
+        name: "members",
+        type: "core::integer::u256",
       },
       {
-        "name": "online_members",
-        "type": "core::integer::u256"
+        name: "online_members",
+        type: "core::integer::u256",
       },
       {
-        "name": "profile_image",
-        "type": "core::byte_array::ByteArray"
+        name: "profile_image",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "cover_image",
-        "type": "core::byte_array::ByteArray"
+        name: "cover_image",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "zuri_points",
-        "type": "core::integer::u256"
-      }
-    ]
+        name: "zuri_points",
+        type: "core::integer::u256",
+      },
+    ],
   },
   {
-    "name": "contract::structs::Notification",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::Notification",
+    members: [
       {
-        "name": "notification_id",
-        "type": "core::integer::u256"
+        name: "notification_id",
+        type: "core::integer::u256",
       },
       {
-        "name": "caller",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "caller",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "receiver",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "receiver",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "notification_message",
-        "type": "core::byte_array::ByteArray"
+        name: "notification_message",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "notification_type",
-        "type": "core::felt252"
+        name: "notification_type",
+        type: "core::felt252",
       },
       {
-        "name": "notification_status",
-        "type": "core::felt252"
+        name: "notification_status",
+        type: "core::felt252",
       },
       {
-        "name": "timestamp",
-        "type": "core::integer::u64"
-      }
-    ]
+        name: "timestamp",
+        type: "core::integer::u64",
+      },
+    ],
   },
   {
-    "name": "contract::structs::Reel",
-    "type": "struct",
-    "members": [
+    type: "struct",
+    name: "contract::structs::Reel",
+    members: [
       {
-        "name": "reel_id",
-        "type": "core::integer::u256"
+        name: "reel_id",
+        type: "core::integer::u256",
       },
       {
-        "name": "caller",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "caller",
+        type: "core::starknet::contract_address::ContractAddress",
       },
       {
-        "name": "likes",
-        "type": "core::integer::u256"
+        name: "likes",
+        type: "core::integer::u256",
       },
       {
-        "name": "dislikes",
-        "type": "core::integer::u256"
+        name: "dislikes",
+        type: "core::integer::u256",
       },
       {
-        "name": "comments",
-        "type": "core::integer::u256"
+        name: "comments",
+        type: "core::integer::u256",
       },
       {
-        "name": "shares",
-        "type": "core::integer::u256"
+        name: "shares",
+        type: "core::integer::u256",
       },
       {
-        "name": "video",
-        "type": "core::byte_array::ByteArray"
+        name: "video",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "timestamp",
-        "type": "core::integer::u64"
+        name: "timestamp",
+        type: "core::integer::u64",
       },
       {
-        "name": "description",
-        "type": "core::byte_array::ByteArray"
+        name: "description",
+        type: "core::byte_array::ByteArray",
       },
       {
-        "name": "zuri_points",
-        "type": "core::integer::u256"
-      }
-    ]
+        name: "zuri_points",
+        type: "core::integer::u256",
+      },
+    ],
   },
   {
-    "name": "contract::interfaces::IStarkZuriContract",
-    "type": "interface",
-    "items": [
+    type: "struct",
+    name: "contract::structs::ReferralView",
+    members: [
       {
-        "name": "get_owner",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
+        name: "referrer",
+        type: "core::starknet::contract_address::ContractAddress",
+      },
+      {
+        name: "referree",
+        type: "contract::structs::LightUser",
+      },
+      {
+        name: "referral_points",
+        type: "core::integer::u256",
+      },
+      {
+        name: "verified",
+        type: "core::integer::u256",
+      },
+      {
+        name: "rewarded",
+        type: "core::integer::u256",
+      },
+      {
+        name: "timestamp",
+        type: "core::integer::u64",
+      },
+    ],
+  },
+  {
+    type: "struct",
+    name: "contract::structs::RedemptionRequest",
+    members: [
+      {
+        name: "redemption_id",
+        type: "core::integer::u256",
+      },
+      {
+        name: "account_id",
+        type: "core::starknet::contract_address::ContractAddress",
+      },
+      {
+        name: "redemption_status",
+        type: "core::integer::u32",
+      },
+      {
+        name: "redemption_amount",
+        type: "core::integer::u256",
+      },
+      {
+        name: "mode_of_payment",
+        type: "core::felt252",
+      },
+      {
+        name: "payment_address",
+        type: "core::byte_array::ByteArray",
+      },
+      {
+        name: "contact_type",
+        type: "core::felt252",
+      },
+      {
+        name: "contact_value",
+        type: "core::byte_array::ByteArray",
+      },
+      {
+        name: "timestamp",
+        type: "core::integer::u64",
+      },
+    ],
+  },
+  {
+    type: "interface",
+    name: "contract::interfaces::IStarkZuriContract",
+    items: [
+      {
+        type: "function",
+        name: "get_owner",
+        inputs: [],
+        outputs: [
           {
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            type: "core::starknet::contract_address::ContractAddress",
+          },
         ],
-        "state_mutability": "view"
+        state_mutability: "view",
       },
       {
-        "name": "add_user",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "add_user",
+        inputs: [
           {
-            "name": "name",
-            "type": "core::felt252"
+            name: "name",
+            type: "core::felt252",
           },
           {
-            "name": "username",
-            "type": "core::felt252"
+            name: "username",
+            type: "core::felt252",
           },
           {
-            "name": "about",
-            "type": "core::byte_array::ByteArray"
+            name: "about",
+            type: "core::byte_array::ByteArray",
           },
           {
-            "name": "profile_pic",
-            "type": "core::byte_array::ByteArray"
+            name: "profile_pic",
+            type: "core::byte_array::ByteArray",
           },
           {
-            "name": "cover_photo",
-            "type": "core::byte_array::ByteArray"
-          }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-      },
-      {
-        "name": "view_user",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "user_id",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "contract::structs::User"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "view_user_count",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "core::integer::u256"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "view_all_users",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::User>"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "follow_user",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "user",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-      },
-      {
-        "name": "follower_exist",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "user",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "core::bool"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "view_followers",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "user",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::User>"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "upgrade",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "impl_hash",
-            "type": "core::starknet::class_hash::ClassHash"
-          }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-      },
-      {
-        "name": "version",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "core::integer::u256"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "create_post",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "content",
-            "type": "core::byte_array::ByteArray"
+            name: "cover_photo",
+            type: "core::byte_array::ByteArray",
           },
           {
-            "name": "images",
-            "type": "core::byte_array::ByteArray"
-          }
+            name: "referrer_username",
+            type: "core::felt252",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "like_post",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_user",
+        inputs: [
           {
-            "name": "post_id",
-            "type": "core::integer::u256"
-          }
+            name: "user_id",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [
+          {
+            type: "contract::structs::User",
+          },
+        ],
+        state_mutability: "view",
       },
       {
-        "name": "unlike_post",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_user_count",
+        inputs: [],
+        outputs: [
           {
-            "name": "post_id",
-            "type": "core::integer::u256"
-          }
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        state_mutability: "view",
       },
       {
-        "name": "view_likes",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_all_users",
+        inputs: [],
+        outputs: [
           {
-            "name": "post_id",
-            "type": "core::integer::u256"
-          }
+            type: "core::array::Array::<contract::structs::User>",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::User>"
-          }
-        ],
-        "state_mutability": "view"
+        state_mutability: "view",
       },
       {
-        "name": "comment_on_post",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "follow_user",
+        inputs: [
           {
-            "name": "post_id",
-            "type": "core::integer::u256"
+            name: "user",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "follower_exist",
+        inputs: [
+          {
+            name: "user",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::bool",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "view_followers",
+        inputs: [
+          {
+            name: "user",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::User>",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "upgrade",
+        inputs: [
+          {
+            name: "impl_hash",
+            type: "core::starknet::class_hash::ClassHash",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "version",
+        inputs: [],
+        outputs: [
+          {
+            type: "core::integer::u256",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "create_post",
+        inputs: [
+          {
+            name: "content",
+            type: "core::byte_array::ByteArray",
           },
           {
-            "name": "content",
-            "type": "core::byte_array::ByteArray"
-          }
+            name: "images",
+            type: "core::byte_array::ByteArray",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "view_comments",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "like_post",
+        inputs: [
           {
-            "name": "post_id",
-            "type": "core::integer::u256"
-          }
+            name: "post_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::Comment>"
-          }
-        ],
-        "state_mutability": "view"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "view_posts",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "unlike_post",
+        inputs: [
           {
-            "name": "page",
-            "type": "core::integer::u256"
-          }
+            name: "post_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::PostView>"
-          }
-        ],
-        "state_mutability": "view"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "filter_post",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_likes",
+        inputs: [
           {
-            "name": "user",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            name: "post_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [
+        outputs: [
           {
-            "type": "core::array::Array::<contract::structs::Post>"
-          }
+            type: "core::array::Array::<contract::structs::User>",
+          },
         ],
-        "state_mutability": "view"
+        state_mutability: "view",
       },
       {
-        "name": "view_post",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "comment_on_post",
+        inputs: [
           {
-            "name": "post_id",
-            "type": "core::integer::u256"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "contract::structs::Post"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "create_community",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "community_name",
-            "type": "core::felt252"
+            name: "post_id",
+            type: "core::integer::u256",
           },
           {
-            "name": "description",
-            "type": "core::byte_array::ByteArray"
+            name: "content",
+            type: "core::byte_array::ByteArray",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "view_comments",
+        inputs: [
+          {
+            name: "post_id",
+            type: "core::integer::u256",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::Comment>",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "view_posts",
+        inputs: [
+          {
+            name: "page",
+            type: "core::integer::u256",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::PostView>",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "filter_post",
+        inputs: [
+          {
+            name: "user",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::Post>",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "view_post",
+        inputs: [
+          {
+            name: "post_id",
+            type: "core::integer::u256",
+          },
+        ],
+        outputs: [
+          {
+            type: "contract::structs::Post",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "create_community",
+        inputs: [
+          {
+            name: "community_name",
+            type: "core::felt252",
           },
           {
-            "name": "profile_image",
-            "type": "core::byte_array::ByteArray"
+            name: "description",
+            type: "core::byte_array::ByteArray",
           },
           {
-            "name": "cover_image",
-            "type": "core::byte_array::ByteArray"
-          }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-      },
-      {
-        "name": "list_communities",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::Community>"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "join_community",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "community_id",
-            "type": "core::integer::u256"
-          }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-      },
-      {
-        "name": "member_exist",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "community_id",
-            "type": "core::integer::u256"
+            name: "profile_image",
+            type: "core::byte_array::ByteArray",
           },
           {
-            "name": "userId",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            name: "cover_image",
+            type: "core::byte_array::ByteArray",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::bool"
-          }
-        ],
-        "state_mutability": "view"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "view_community_members",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "list_communities",
+        inputs: [],
+        outputs: [
           {
-            "name": "community_id",
-            "type": "core::integer::u256"
-          }
+            type: "core::array::Array::<contract::structs::Community>",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::User>"
-          }
-        ],
-        "state_mutability": "view"
+        state_mutability: "view",
       },
       {
-        "name": "trigger_notification",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "join_community",
+        inputs: [
           {
-            "name": "caller",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            name: "community_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "view_notifications",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "member_exist",
+        inputs: [
           {
-            "name": "account_name",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
-        ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::Notification>"
-          }
-        ],
-        "state_mutability": "view"
-      },
-      {
-        "name": "create_reel",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "description",
-            "type": "core::byte_array::ByteArray"
+            name: "community_id",
+            type: "core::integer::u256",
           },
           {
-            "name": "video",
-            "type": "core::byte_array::ByteArray"
-          }
+            name: "userId",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [
+          {
+            type: "core::bool",
+          },
+        ],
+        state_mutability: "view",
       },
       {
-        "name": "view_reels",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
+        type: "function",
+        name: "view_community_members",
+        inputs: [
           {
-            "type": "core::array::Array::<contract::structs::Reel>"
-          }
+            name: "community_id",
+            type: "core::integer::u256",
+          },
         ],
-        "state_mutability": "view"
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::User>",
+          },
+        ],
+        state_mutability: "view",
       },
       {
-        "name": "view_reels_for_account",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "trigger_notification",
+        inputs: [
           {
-            "name": "owner",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            name: "caller",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::Reel>"
-          }
-        ],
-        "state_mutability": "view"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "like_reel",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_notifications",
+        inputs: [
           {
-            "name": "reel_id",
-            "type": "core::integer::u256"
-          }
+            name: "account_name",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::Notification>",
+          },
+        ],
+        state_mutability: "view",
       },
       {
-        "name": "dislike_reel",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "create_reel",
+        inputs: [
           {
-            "name": "reel_id",
-            "type": "core::integer::u256"
-          }
-        ],
-        "outputs": [],
-        "state_mutability": "external"
-      },
-      {
-        "name": "comment_on_reel",
-        "type": "function",
-        "inputs": [
-          {
-            "name": "reel_id",
-            "type": "core::integer::u256"
+            name: "description",
+            type: "core::byte_array::ByteArray",
           },
           {
-            "name": "content",
-            "type": "core::byte_array::ByteArray"
-          }
+            name: "video",
+            type: "core::byte_array::ByteArray",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "view_reel_comments",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_reels",
+        inputs: [],
+        outputs: [
           {
-            "name": "reel_id",
-            "type": "core::integer::u256"
-          }
+            type: "core::array::Array::<contract::structs::Reel>",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::array::Array::<contract::structs::Comment>"
-          }
-        ],
-        "state_mutability": "view"
+        state_mutability: "view",
       },
       {
-        "name": "repost_reel",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_reels_for_account",
+        inputs: [
           {
-            "name": "reel_id",
-            "type": "core::integer::u256"
-          }
+            name: "owner",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::Reel>",
+          },
+        ],
+        state_mutability: "view",
       },
       {
-        "name": "claim_reel_points",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "like_reel",
+        inputs: [
           {
-            "name": "reel_id",
-            "type": "core::integer::u256"
-          }
+            name: "reel_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "claim_post_points",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "dislike_reel",
+        inputs: [
           {
-            "name": "post_id",
-            "type": "core::integer::u256"
-          }
+            name: "reel_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "add_token_address",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "comment_on_reel",
+        inputs: [
           {
-            "name": "token_name",
-            "type": "core::felt252"
+            name: "reel_id",
+            type: "core::integer::u256",
           },
           {
-            "name": "token_address",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            name: "content",
+            type: "core::byte_array::ByteArray",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "deposit_fee",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "view_reel_comments",
+        inputs: [
           {
-            "name": "receiver",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            name: "reel_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::Comment>",
+          },
+        ],
+        state_mutability: "view",
       },
       {
-        "name": "view_contract_balance",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "repost_reel",
+        inputs: [
           {
-            "name": "address",
-            "type": "core::starknet::contract_address::ContractAddress"
-          }
+            name: "reel_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [
-          {
-            "type": "core::integer::u256"
-          }
-        ],
-        "state_mutability": "view"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "get_total_posts",
-        "type": "function",
-        "inputs": [],
-        "outputs": [
+        type: "function",
+        name: "claim_reel_points",
+        inputs: [
           {
-            "type": "core::integer::u256"
-          }
+            name: "reel_id",
+            type: "core::integer::u256",
+          },
         ],
-        "state_mutability": "view"
+        outputs: [],
+        state_mutability: "external",
       },
       {
-        "name": "withdraw_zuri_points",
-        "type": "function",
-        "inputs": [
+        type: "function",
+        name: "claim_post_points",
+        inputs: [
           {
-            "name": "amount",
-            "type": "core::integer::u256"
-          }
+            name: "post_id",
+            type: "core::integer::u256",
+          },
         ],
-        "outputs": [],
-        "state_mutability": "external"
-      }
-    ]
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "add_token_address",
+        inputs: [
+          {
+            name: "token_name",
+            type: "core::felt252",
+          },
+          {
+            name: "token_address",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "deposit_fee",
+        inputs: [
+          {
+            name: "receiver",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "view_contract_balance",
+        inputs: [
+          {
+            name: "address",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::integer::u256",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "get_total_posts",
+        inputs: [],
+        outputs: [
+          {
+            type: "core::integer::u256",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "withdraw_zuri_points",
+        inputs: [
+          {
+            name: "amount",
+            type: "core::integer::u256",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "create_redemption",
+        inputs: [
+          {
+            name: "amount",
+            type: "core::integer::u256",
+          },
+          {
+            name: "mode_of_payment",
+            type: "core::felt252",
+          },
+          {
+            name: "payment_address",
+            type: "core::byte_array::ByteArray",
+          },
+          {
+            name: "contact_type",
+            type: "core::felt252",
+          },
+          {
+            name: "contact",
+            type: "core::byte_array::ByteArray",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "verify_redemption",
+        inputs: [
+          {
+            name: "redemption_id",
+            type: "core::integer::u256",
+          },
+          {
+            name: "new_status",
+            type: "core::integer::u32",
+          },
+        ],
+        outputs: [],
+        state_mutability: "external",
+      },
+      {
+        type: "function",
+        name: "view_referrer_points",
+        inputs: [
+          {
+            name: "referrer_address",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::integer::u256",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "get_referees_paginated",
+        inputs: [
+          {
+            name: "referrer",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+          {
+            name: "page",
+            type: "core::integer::u256",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::ReferralView>",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "view_redemptions_paginated",
+        inputs: [
+          {
+            name: "referrer",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+          {
+            name: "page",
+            type: "core::integer::u256",
+          },
+        ],
+        outputs: [
+          {
+            type: "core::array::Array::<contract::structs::RedemptionRequest>",
+          },
+        ],
+        state_mutability: "view",
+      },
+      {
+        type: "function",
+        name: "add_user_names",
+        inputs: [],
+        outputs: [],
+        state_mutability: "external",
+      },
+    ],
   },
   {
-    "name": "constructor",
-    "type": "constructor",
-    "inputs": [
+    type: "constructor",
+    name: "constructor",
+    inputs: [
       {
-        "name": "address",
-        "type": "core::starknet::contract_address::ContractAddress"
-      }
-    ]
+        name: "address",
+        type: "core::starknet::contract_address::ContractAddress",
+      },
+    ],
   },
   {
-    "kind": "struct",
-    "name": "contract::starkzuri::StarkZuri::Upgraded",
-    "type": "event",
-    "members": [
+    type: "event",
+    name: "contract::starkzuri::StarkZuri::Upgraded",
+    kind: "struct",
+    members: [
       {
-        "kind": "data",
-        "name": "implementation",
-        "type": "core::starknet::class_hash::ClassHash"
-      }
-    ]
+        name: "implementation",
+        type: "core::starknet::class_hash::ClassHash",
+        kind: "data",
+      },
+    ],
   },
   {
-    "kind": "struct",
-    "name": "contract::starkzuri::StarkZuri::NewUserRegistered",
-    "type": "event",
-    "members": [
+    type: "event",
+    name: "contract::starkzuri::StarkZuri::NewUserRegistered",
+    kind: "struct",
+    members: [
       {
-        "kind": "key",
-        "name": "userId",
-        "type": "core::starknet::contract_address::ContractAddress"
+        name: "userId",
+        type: "core::starknet::contract_address::ContractAddress",
+        kind: "key",
       },
       {
-        "kind": "data",
-        "name": "name",
-        "type": "core::felt252"
-      }
-    ]
+        name: "name",
+        type: "core::felt252",
+        kind: "data",
+      },
+    ],
   },
   {
-    "kind": "enum",
-    "name": "contract::starkzuri::StarkZuri::Event",
-    "type": "event",
-    "variants": [
+    type: "event",
+    name: "contract::starkzuri::StarkZuri::RedemptionRequested",
+    kind: "struct",
+    members: [
       {
-        "kind": "nested",
-        "name": "Upgraded",
-        "type": "contract::starkzuri::StarkZuri::Upgraded"
+        name: "redemption_id",
+        type: "core::integer::u256",
+        kind: "key",
       },
       {
-        "kind": "nested",
-        "name": "NewUserRegistered",
-        "type": "contract::starkzuri::StarkZuri::NewUserRegistered"
-      }
-    ]
-  }
-]
+        name: "account_id",
+        type: "core::starknet::contract_address::ContractAddress",
+        kind: "data",
+      },
+      {
+        name: "amount",
+        type: "core::integer::u256",
+        kind: "data",
+      },
+    ],
+  },
+  {
+    type: "event",
+    name: "contract::starkzuri::StarkZuri::RedemptionVerified",
+    kind: "struct",
+    members: [
+      {
+        name: "redemption_id",
+        type: "core::integer::u256",
+        kind: "data",
+      },
+      {
+        name: "account_id",
+        type: "core::starknet::contract_address::ContractAddress",
+        kind: "data",
+      },
+      {
+        name: "status",
+        type: "core::integer::u32",
+        kind: "data",
+      },
+    ],
+  },
+  {
+    type: "event",
+    name: "contract::starkzuri::StarkZuri::Event",
+    kind: "enum",
+    variants: [
+      {
+        name: "Upgraded",
+        type: "contract::starkzuri::StarkZuri::Upgraded",
+        kind: "nested",
+      },
+      {
+        name: "NewUserRegistered",
+        type: "contract::starkzuri::StarkZuri::NewUserRegistered",
+        kind: "nested",
+      },
+      {
+        name: "RedemptionRequested",
+        type: "contract::starkzuri::StarkZuri::RedemptionRequested",
+        kind: "nested",
+      },
+      {
+        name: "RedemptionVerified",
+        type: "contract::starkzuri::StarkZuri::RedemptionVerified",
+        kind: "nested",
+      },
+    ],
+  },
+];

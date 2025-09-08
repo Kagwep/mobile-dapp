@@ -1,23 +1,22 @@
+import { CONTRACT_ADDRESS } from "@/providers/abi";
+import { useAppContext } from "@/providers/AppProvider";
+import { weiToEth } from "@/utils/AppUtils";
+import { uploadFile } from "@/utils/Infura";
+import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import {
-  View,
+  Alert,
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  Image,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-  Alert,
-  Dimensions,
+  View,
 } from "react-native";
 import Toast from "react-native-toast-message";
-import { useAppContext } from "@/providers/AppProvider";
-import { multilineToSingleline, weiToEth } from "@/utils/AppUtils";
-import * as ImagePicker from "expo-image-picker";
-import { CONTRACT_ADDRESS } from "@/providers/abi";
-import { CallData } from "starknet";
-import { uploadFile } from "@/utils/Infura";
 import ConfirmPostModal from "./PostConfirmationModal";
 
 const { width } = Dimensions.get("window");
@@ -45,6 +44,7 @@ const ProfileUpdateComponent = ({ onClose }) => {
     name: "",
     username: "",
     about: "",
+    referred_by: "",
   });
 
   const handleInputChange = (field, value) => {
@@ -140,6 +140,7 @@ const ProfileUpdateComponent = ({ onClose }) => {
         profileData.about,
         profileData.profilePicture,
         profileData.coverPhoto,
+        profileData.referred_by || 0,
       ]);
 
       const { suggestedMaxFee, unit } = await account.estimateInvokeFee({
@@ -186,6 +187,7 @@ const ProfileUpdateComponent = ({ onClose }) => {
       profileData.about,
       profileData.profilePicture,
       profileData.coverPhoto,
+      profileData.referred_by || 0,
     ]);
 
     try {
@@ -329,6 +331,27 @@ const ProfileUpdateComponent = ({ onClose }) => {
           <Text style={styles.characterCount}>
             {profileData.about.length}/150
           </Text>
+        </View>
+
+        {/* referred by */}
+        <View style={styles.inputGroup}>
+          <View style={styles.inputLabel}>
+            <Text style={styles.inputIcon}>&</Text>
+            <Text style={styles.labelText}>Referred by</Text>
+          </View>
+          <TextInput
+            style={styles.textInput}
+            value={profileData.referred_by}
+            onChangeText={(text) =>
+              handleInputChange(
+                "referred_by",
+                text.toLowerCase().replace(/[^a-z0-9_]/g, "")
+              )
+            }
+            placeholder="enter referral code"
+            placeholderTextColor="#6B7280"
+            autoCapitalize="none"
+          />
         </View>
 
         {/* Save Button */}

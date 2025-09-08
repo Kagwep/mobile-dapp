@@ -1,30 +1,29 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Animated,
-  StatusBar,
-  Alert,
-  RefreshControl,
-  Dimensions,
-  Modal,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
-import { Redirect, useRouter, useFocusEffect } from "expo-router";
-import Toast from "react-native-toast-message";
 import ConfirmPostModal from "@/components/PostConfirmationModal";
-import { CallData } from "starknet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Linking from "expo-linking";
-import { SafeAreaView } from "react-native-safe-area-context";
-import MiniFunctions from "@/utils/MiniFunctions";
+import { CONTRACT_ADDRESS } from "@/providers/abi";
 import { useAppContext } from "@/providers/AppProvider";
 import { getEthBalance, weiToEth } from "@/utils/AppUtils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Linking from "expo-linking";
+import { useFocusEffect, useRouter } from "expo-router";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Alert,
+  Animated,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  RefreshControl,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 // Icon components (you can replace these with react-native-vector-icons)
 const IconWrapper = ({ children, color, size = 24 }) => (
@@ -122,6 +121,12 @@ const StarkZuriMoreTab = () => {
 
   const menuItems = [
     {
+      icon: "※",
+      title: "Referrals",
+      subtitle: "Refer and earn",
+      color: "#07f900",
+    },
+    {
       icon: "❓",
       title: "Join Telegram",
       subtitle: "Join our telegram",
@@ -172,8 +177,7 @@ const StarkZuriMoreTab = () => {
       const myCall = contract.populate("withdraw_zuri_points", [
         withdrawAmount,
       ]);
-      const POST_CONTRACT =
-        "0x7c2109cfa8c36fa10c6baac19b234679606cba00eb6697a052b73b869850673";
+      const POST_CONTRACT = CONTRACT_ADDRESS;
 
       const calls = {
         contractAddress: POST_CONTRACT,
@@ -202,8 +206,7 @@ const StarkZuriMoreTab = () => {
       const myCall = contract.populate("withdraw_zuri_points", [
         withdrawAmount,
       ]);
-      const POST_CONTRACT =
-        "0x7c2109cfa8c36fa10c6baac19b234679606cba00eb6697a052b73b869850673";
+      const POST_CONTRACT = CONTRACT_ADDRESS;
 
       const res = await account.execute(myCall);
       console.log("Points claimed", res.transaction_hash);
@@ -317,6 +320,10 @@ const StarkZuriMoreTab = () => {
     Linking.openURL("https://t.me/starkzuri");
   };
 
+  const handleVisitReferrals = () => {
+    router.push({ pathname: "/modals/referral" });
+  };
+
   const handleMenuItemPress = (title) => {
     console.log(title);
     switch (title) {
@@ -334,6 +341,9 @@ const StarkZuriMoreTab = () => {
         break;
       case "Join Telegram":
         handleJoinTelegram();
+        break;
+      case "Referrals":
+        handleVisitReferrals();
         break;
     }
   };
